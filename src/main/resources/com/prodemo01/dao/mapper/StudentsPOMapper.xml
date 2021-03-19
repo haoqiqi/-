@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prodemo01.dao.mapper.StudentsPOMapper">
+  <resultMap id="BaseResultMap" type="com.prodemo01.dao.po.StudentsPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="stuId" jdbcType="BIGINT" property="stuid" />
+    <result column="stuName" jdbcType="VARCHAR" property="stuname" />
+    <result column="stuState" jdbcType="INTEGER" property="stustate" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from students
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.prodemo01.dao.po.StudentsPO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into students (stuId, stuName, stuState, 
+      addTime, updateTime)
+    values (#{stuid,jdbcType=BIGINT}, #{stuname,jdbcType=VARCHAR}, #{stustate,jdbcType=INTEGER}, 
+      #{addtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.prodemo01.dao.po.StudentsPO">
+    update students
+    set stuId = #{stuid,jdbcType=BIGINT},
+      stuName = #{stuname,jdbcType=VARCHAR},
+      stuState = #{stustate,jdbcType=INTEGER},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, stuId, stuName, stuState, addTime, updateTime
+    from students
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, stuId, stuName, stuState, addTime, updateTime
+    from students
+  </select>
+
+  <!--通过学生学号查找-->
+  <select id="selectByStudentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select stuId, stuName, stuState, addTime, updateTime
+    from students
+    where stuId = #{stuId,jdbcType=BIGINT}
+  </select>
+
+  <update id="updateStuState" parameterType="com.prodemo01.dao.po.StudentsPO">
+    update students
+    set
+      stuState = #{stustate,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where stuid = #{stuid,jdbcType=BIGINT}
+  </update>
+
+</mapper>
