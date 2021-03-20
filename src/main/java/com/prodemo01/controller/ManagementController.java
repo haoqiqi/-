@@ -78,87 +78,87 @@ public class ManagementController {
                 } else {
                     log.info("借书成功");
 
-                    // 判断是否有记录，若有就覆盖
-                    BorrowedPO borrowedPO1 = managementService.selectBorrowedByBookId(bookid);
-                    if(borrowedPO1 != null
-                            && bookid.equals(borrowedPO1.getBookid())) {
-                        log.info("覆盖原纪录");
+//                    // 判断是否有记录，若有就覆盖
+//                    BorrowedPO borrowedPO1 = managementService.selectBorrowedByBookId(bookid);
+//                    if(borrowedPO1 != null
+//                            && bookid.equals(borrowedPO1.getBookid())) {
+//                        log.info("覆盖原纪录");
+//
+//                        borrowedPO1.setStuid(stuid);
+//                        borrowedPO1.setValid(1);
+//                        borrowedPO1.setAddtime(new Date());
+//                        borrowedPO1.setUpdatetime(new Date());
+//                        if (managementService.updateBorrowedByBookId(borrowedPO1)){
+//                            log.info("覆盖成功");
+//                        }
+//                        Long stuid1 = borrowedPO1.getStuid();
+//
+//                    } else {// 若没有，则创建新的
+//                        // 修改学生的状态与更新时间
+//                        log.info("新建纪录");
+//                        studentsPO.setStustate(2);
+//                        studentsPO.setUpdatetime(new Date());
+//                        if(managementService.updateStuById(studentsPO)){
+//                            log.info("学生状态更新成功");
+//                        } else {
+//                            return ResultVO.failed("学生状态更新失败");
+//                        }
+//
+//                        // 修改书籍的状态、被借次数与更新时间
+//                        booksPO.setState(2);
+//                        Integer count = booksPO.getCount();
+//                        booksPO.setCount(count+1);
+//                        booksPO.setUpdatetime(new Date());
+//                        if(managementService.updateBookById(booksPO)){
+//                            log.info("书籍状态更新成功");
+//                        } else {
+//                            return ResultVO.failed("书籍状态更新失败");
+//                        }
+//
+//                        // 将借书信息插入借书表
+//
+//                        // 创建借书对象
+//                        BorrowedPO borrowedPO = borConverterService.request2po(stuid, bookid);
+//                        // 插入
+//                        if(managementService.insertBorrowed(borrowedPO)) {
+//                            log.info("插入借书表成功");
+//                        } else {
+//                            return ResultVO.failed("插入借书表失败");
+//                        }
+//                    }
 
-                        borrowedPO1.setStuid(stuid);
-                        borrowedPO1.setValid(1);
-                        borrowedPO1.setAddtime(new Date());
-                        borrowedPO1.setUpdatetime(new Date());
-                        if (managementService.updateBorrowedByBookId(borrowedPO1)){
-                            log.info("覆盖成功");
-                        }
-                        Long stuid1 = borrowedPO1.getStuid();
 
-                    } else {// 若没有，则创建新的
-                        // 修改学生的状态与更新时间
-                        log.info("新建纪录");
-                        studentsPO.setStustate(2);
-                        studentsPO.setUpdatetime(new Date());
-                        if(managementService.updateStuById(studentsPO)){
-                            log.info("学生状态更新成功");
-                        } else {
-                            return ResultVO.failed("学生状态更新失败");
-                        }
-
-                        // 修改书籍的状态、被借次数与更新时间
-                        booksPO.setState(2);
-                        Integer count = booksPO.getCount();
-                        booksPO.setCount(count+1);
-                        booksPO.setUpdatetime(new Date());
-                        if(managementService.updateBookById(booksPO)){
-                            log.info("书籍状态更新成功");
-                        } else {
-                            return ResultVO.failed("书籍状态更新失败");
-                        }
-
-                        // 将借书信息插入借书表
-
-                        // 创建借书对象
-                        BorrowedPO borrowedPO = borConverterService.request2po(stuid, bookid);
-                        // 插入
-                        if(managementService.insertBorrowed(borrowedPO)) {
-                            log.info("插入借书表成功");
-                        } else {
-                            return ResultVO.failed("插入借书表失败");
-                        }
+// 修改学生的状态与更新时间
+                    log.info("新建纪录");
+                    studentsPO.setStustate(2);
+                    studentsPO.setUpdatetime(new Date());
+                    if(managementService.updateStuById(studentsPO)){
+                        log.info("学生状态更新成功");
+                    } else {
+                        return ResultVO.failed("学生状态更新失败");
                     }
 
+                    // 修改书籍的状态、被借次数与更新时间
+                    booksPO.setState(2);
+                    Integer count = booksPO.getCount();
+                    booksPO.setCount(count+1);
+                    booksPO.setUpdatetime(new Date());
+                    if(managementService.updateBookById(booksPO)){
+                        log.info("书籍状态更新成功");
+                    } else {
+                        return ResultVO.failed("书籍状态更新失败");
+                    }
 
-//// 修改学生的状态与更新时间
-//                    log.info("新建纪录");
-//                    studentsPO.setStustate(2);
-//                    studentsPO.setUpdatetime(new Date());
-//                    if(managementService.updateStuById(studentsPO)){
-//                        log.info("学生状态更新成功");
-//                    } else {
-//                        return ResultVO.failed("学生状态更新失败");
-//                    }
-//
-//                    // 修改书籍的状态、被借次数与更新时间
-//                    booksPO.setState(2);
-//                    Integer count = booksPO.getCount();
-//                    booksPO.setCount(count+1);
-//                    booksPO.setUpdatetime(new Date());
-//                    if(managementService.updateBookById(booksPO)){
-//                        log.info("书籍状态更新成功");
-//                    } else {
-//                        return ResultVO.failed("书籍状态更新失败");
-//                    }
-//
-//                    // 将借书信息插入借书表
-//
-//                    // 创建借书对象
-//                    BorrowedPO borrowedPO = borConverterService.request2po(stuid, bookid);
-//                    // 插入
-//                    if(managementService.insertBorrowed(borrowedPO)) {
-//                        log.info("插入借书表成功");
-//                    } else {
-//                        return ResultVO.failed("插入借书表失败");
-//                    }
+                    // 将借书信息插入借书表
+
+                    // 创建借书对象
+                    BorrowedPO borrowedPO = borConverterService.request2po(stuid, bookid);
+                    // 插入
+                    if(managementService.insertBorrowed(borrowedPO)) {
+                        log.info("插入借书表成功");
+                    } else {
+                        return ResultVO.failed("插入借书表失败");
+                    }
 
 
                 }
