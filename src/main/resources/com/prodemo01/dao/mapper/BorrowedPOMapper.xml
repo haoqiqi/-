@@ -40,4 +40,20 @@
     select id, bookId, stuId, valid, addTime, updateTime
     from borrowed
   </select>
+
+
+  <select id="selectByBookId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select bookId, stuId, valid, addTime, updateTime
+    from borrowed
+    where bookId = #{bookid,jdbcType=BIGINT}
+  </select>
+  <update id="updateBorrowedState" parameterType="com.prodemo01.dao.po.BorrowedPO">
+    update borrowed
+    set
+      valid = #{valid,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where bookId = #{bookid,jdbcType=BIGINT}
+  </update>
 </mapper>
+
+

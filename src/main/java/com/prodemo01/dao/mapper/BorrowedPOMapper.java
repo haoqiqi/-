@@ -13,4 +13,8 @@ public interface BorrowedPOMapper {
     List<BorrowedPO> selectAll();
 
     int updateByPrimaryKey(BorrowedPO record);
+
+    BorrowedPO selectByBookId(Long bookid);
+
+    int updateBorrowedState(BorrowedPO borrowedPO);
 }

@@ -79,4 +79,18 @@ public class ManagementService {
         borrowedPOMapper.insert(borrowedPO);
         return true;
     }
+
+    public BorrowedPO selectBorrowedByBookId(Long bookid) {
+        if (bookid <= 0) {
+            log.info("[user] invalid param! id = {}", bookid);
+            return null;
+        }
+        BorrowedPO borrowedPO = borrowedPOMapper.selectByBookId(bookid);
+        return borrowedPO;
+    }
+
+    public boolean updateBorrowedByBookId(BorrowedPO borrowedPO) {
+        borrowedPOMapper.updateBorrowedState(borrowedPO);
+        return true;
+    }
 }
